@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useEffect } from "react";
 
 
 function App() {
@@ -6,13 +7,7 @@ function App() {
   const [texto, setTexto]= useState("")
   const [traduz, setTraduz]= useState("")
 
-  function PegarValor(evento){
-    setTexto(evento.target.value)
-
-  }
-
   function Traducao(){
-
       fetch(`https://api.mymemory.translated.net/get?q=${texto}&langpair= en-us|pt-br`)
         .then((resposta) => resposta.json())
         .then((dados) => setTraduz(dados.responseData.translatedText))
@@ -22,6 +17,11 @@ function App() {
       console.log(traduz)
 
   }
+  function PegarValor(evento){
+    setTexto(evento.target.value)
+
+  }
+
 
 
   const languages = [
@@ -55,10 +55,10 @@ function App() {
             >
               <option value="pt-br">Português</option>
               <option value="en-us">Inglês</option>
-              <option value="pt-br">Espanhol</option>
-              <option value="en-us">Francês</option>
-              <option value="en-us">Alemão</option>
-              <option value="pt-br">Italiano</option>
+              <option value="es">Espanhol</option>
+              <option value="fr">Francês</option>
+              <option value="de">Alemão</option>
+              <option value="it">Italiano</option>
 
             </select>
 
