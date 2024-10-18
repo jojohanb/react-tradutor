@@ -1,6 +1,21 @@
+import { useState } from "react";
 
 
 function App() {
+
+  const [texto, setTexto]= useState("")
+  const [traduz, setTraduz]= useState("")
+
+  function Traducao(){
+      fetch(`https://api.mymemory.translated.net/get?q=${texto}&langpair=en|pt-br`)
+        .then((resposta) => resposta.json())
+        .then((dados) => setTraduz(dados.responseData.translatedText))
+        .catch((error) => {
+          alert("Erro:", error);
+    });
+      console.log(traduz)
+  }
+
   const languages = [
     { code: "en-us", name: "Inglês" },
     { code: "es", name: "Espanhol" },
@@ -12,6 +27,8 @@ function App() {
 
   let isLoading = false
   let error = ""
+
+
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -30,6 +47,11 @@ function App() {
             >
               <option value="pt-br">Português</option>
               <option value="en-us">Inglês</option>
+              <option value="pt-br">Espanhol</option>
+              <option value="en-us">Frances</option>
+              <option value="en-us">Alemao</option>
+              <option value="pt-br">Italiano</option>
+
             </select>
 
             <button className="p-2 rounded-full hover:bg-gray-100 outline-none">
@@ -55,12 +77,17 @@ function App() {
             >
               <option value="pt-br">Português</option>
               <option value="en-us">Inglês</option>
+              <option value="pt-br">Espanhol</option>
+              <option value="en-us">Frances</option>
+              <option value="en-us">Alemao</option>
+              <option value="pt-br">Italiano</option>
+
             </select>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="p-4">
-              <textarea
+              <textarea value={texto} onChange={(evento) => setTexto(evento.target.value)}
                 className="w-full h-40 text-lg text-textColor bg-transparent resize-none border-none outline-none"
                 placeholder="Digite seu texto..."                
               ></textarea>
@@ -72,7 +99,7 @@ function App() {
                   <div className="animate-spin rounded-full h-8 w-8 border-blue-500 border-t-2"></div>
                 </div>
               ) : (
-                <p className="text-lg text-textColor">Colocar aqui o texto traduzido</p>
+                <p className="text-lg text-textColor">{texto}</p>
               )}
             </div>
           </div>
@@ -93,7 +120,5 @@ function App() {
     </div>
   );
 }
-
-//vou ver dps
 
 export default App;
